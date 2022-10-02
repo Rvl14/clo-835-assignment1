@@ -12,7 +12,7 @@ variable "instance_type" {
 
 # Variable to signal the current environment 
 variable "env" {
-  default     = "development"
+  default     = "dev"
   type        = string
   description = "Deployment Environment"
 }
