@@ -5,4 +5,4 @@
     sudo yum install mysql -y
     sudo systemctl start docker
     sudo usermod -a -G docker ec2-user
-    docker network create -d bridge my-net
+    docker network create -d bridge terraform
