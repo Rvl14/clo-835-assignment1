@@ -28,7 +28,7 @@ jobs:
         env:
          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          cd clo-835-assignment1/  
+          cd clo835_fall2022_ass1/  
           ls -ltra
                     
           # Building Docker image for mysql
@@ -40,9 +40,8 @@ jobs:
         env:
          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          cd clo-835-assignment1/  
+          cd clo835_fall2022_ass1/   
           ls -ltra
           # Building docker for webapp
           docker build -f Dockerfile -t $ECR_REGISTRY/assignment1-development-software:v1.0 .
           docker push $ECR_REGISTRY/assignment1-development-software:v1.0
-          
