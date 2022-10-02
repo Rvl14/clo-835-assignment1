@@ -1,0 +1,48 @@
+
+name: Building Docker Images and Pushing to AWS ECR
+
+on:
+  push:
+    branches: [ "master" ]
+ 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION: us-east-1   
+          
+          
+      - name: Built Docker Images Pushing to ECR
+        env:
+         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          cd clo-835-assignment1/  
+          ls -ltra
+                    
+          # Building Docker image for mysql
+          docker build -f Dockerfile_mysql -t $ECR_REGISTRY/assignment1-development-mysqldatabase:v1.0 .
+          docker push $ECR_REGISTRY/assignment1-development-mysqldatabase:v1.0
+          
+          
+      - name: Push data to ECR
+        env:
+         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          cd clo-835-assignment1/  
+          ls -ltra
+          # Building docker for webapp
+          docker build -f Dockerfile -t $ECR_REGISTRY/assignment1-development-software:v1.0 .
+          docker push $ECR_REGISTRY/assignment1-development-software:v1.0
+          
