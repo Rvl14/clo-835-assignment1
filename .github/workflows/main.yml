@@ -32,8 +32,8 @@ jobs:
           ls -ltra
                     
           # Building Docker image for mysql
-          docker build -f Dockerfile_mysql -t 406947468681.dkr.ecr.us-east-1.amazonaws.com/rvl-swldb:v1.0 .
-          docker push 406947468681.dkr.ecr.us-east-1.amazonaws.com/rvl-swldb:v1.0
+          docker build -f Dockerfile_mysql -t 406947468681.dkr.ecr.us-east-1.amazonaws.com/rvl-mysql:v1.0 .
+          docker push 406947468681.dkr.ecr.us-east-1.amazonaws.com/rvl-mysql:v1.0
           
           
       - name: Push data to ECR
